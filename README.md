@@ -6,6 +6,20 @@ Unlike generic scroll-saving extensions, ScrollMark is custom-built to handle co
 
 ---
 
+## 📺 Demo & Preview
+
+<p align="center">
+  <img src="public%20img/ss.png" alt="ScrollMark Extension Preview" width="320">
+</p>
+
+<br>
+
+<p align="center">
+  <video src="public%20img/video%20demo.mp4" width="100%" controls autoplay loop muted></video>
+</p>
+
+---
+
 ## 💡 The Origin Story
 Built during study breaks for exams. When reading long study materials or logs and scrolling down to ask counter-questions in ChatGPT, losing the scroll position and having to find the place again was a constant disruption. ScrollMark solves this by letting you bookmark your exact paragraph, scroll down to chat/ask questions, and instantly teleport right back.
 

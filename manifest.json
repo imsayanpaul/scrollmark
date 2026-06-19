@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "ScrollMark",
+  "version": "1.0.0",
+  "description": "Set a scroll point, auto-scroll, and instantly return to your mark on any webpage with a click or hotkey.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ScrollMark Controls",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "commands": {
+    "set-mark": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "Alt+S"
+      },
+      "description": "Set Scroll Mark at Current Line"
+    },
+    "jump-to-mark": {
+      "suggested_key": {
+        "default": "Alt+J",
+        "mac": "Alt+J"
+      },
+      "description": "Jump to Saved Scroll Mark"
+    },
+    "toggle-autoscroll": {
+      "suggested_key": {
+        "default": "Alt+A",
+        "mac": "Alt+A"
+      },
+      "description": "Toggle Auto-Scroll"
+    }
+  }
+}

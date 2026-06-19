@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrollMark Controls</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #121214;
+      --text: #f4f4f5;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --border: #27272a;
+      --border-hover: #3f3f46;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --success: #10b981;
+      --danger: #ef4444;
+    }
+
+    body {
+      margin: 0;
+      padding: 14px;
+      width: 300px;
+      font-family: 'Outfit', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      box-sizing: border-box;
+      letter-spacing: -0.01em;
+    }
+
+    * { box-sizing: border-box; }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-group svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--accent);
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .version {
+      font-size: 9px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    /* Action Buttons */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 10px;
+      transition: background-color 0.15s, border-color 0.15s, transform 0.1s;
+      font-family: inherit;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn svg {
+      width: 14px;
+      height: 14px;
+      stroke-width: 1.8;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      color: #09090b;
+    }
+
+    .btn-primary:hover {
+      background: #e4e4e7;
+      border-color: #e4e4e7;
+    }
+
+    .btn-primary svg { stroke: #09090b; }
+
+    .btn-secondary {
+      background: #18181b;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #27272a;
+      border-color: var(--border-hover);
+    }
+
+    .btn-secondary svg { stroke: var(--text-muted); }
+
+    .btn-secondary.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    /* Auto Scroll Section */
+    .scroll-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .scroll-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .scroll-label svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--text-secondary);
+      stroke-width: 1.8;
+    }
+
+    .scroll-toggle {
+      background: #18181b;
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background-color 0.15s, border-color 0.15s;
+      width: 24px;
+      height: 24px;
+    }
+
+    .scroll-toggle:hover {
+      background: #27272a;
+      border-color: var(--border-hover);
+    }
+
+    .scroll-toggle.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .scroll-toggle svg {
+      width: 10px;
+      height: 10px;
+      fill: currentColor;
+    }
+
+    .scroll-toggle.active svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .speed-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .speed-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      width: 28px;
+      text-align: right;
+      font-family: monospace;
+    }
+
+    .slider {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 3px;
+      border-radius: 2px;
+      background: #27272a;
+      outline: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+      background: #ffffff;
+    }
+
+    /* Status Row */
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      padding: 7px 10px;
+    }
+
+    .status-row span:last-child {
+      font-family: monospace;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Bookmarks */
+    .bookmarks-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .bookmark-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 130px;
+      overflow-y: auto;
+    }
+
+    .bookmark-list::-webkit-scrollbar { width: 3px; }
+    .bookmark-list::-webkit-scrollbar-track { background: transparent; }
+    .bookmark-list::-webkit-scrollbar-thumb { background: #27272a; border-radius: 2px; }
+
+    .bookmark-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      transition: border-color 0.15s;
+    }
+
+    .bookmark-item:hover {
+      border-color: var(--border-hover);
+    }
+
+    .bookmark-label {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    .bookmark-name {
+      color: var(--text);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bookmark-desc {
+      color: var(--text-muted);
+      font-size: 9px;
+      font-family: monospace;
+    }
+
+    .bookmark-actions {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-left: 6px;
+    }
+
+    .bk-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 3px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s, background-color 0.15s;
+    }
+
+    .bk-btn:hover { background: #27272a; color: var(--text); }
+    .bk-btn-go:hover { color: var(--success); }
+    .bk-btn-del:hover { color: var(--danger); }
+
+    .bk-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+    }
+
+    .no-bookmarks {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 10px;
+      background: var(--bg);
+      border-radius: 6px;
+      border: 1px dashed var(--border);
+    }
+
+    /* Shortcuts */
+    .shortcuts-section {
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .shortcut-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      padding: 4px 0;
+    }
+
+    .kbd-tag {
+      background: #18181b;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: monospace;
+      font-size: 10px;
+      color: var(--text);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .footer a:hover { color: var(--accent); }
+
+    /* Feedback Toast */
+    .toast {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-group">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <div class="title">ScrollMark</div>
+    </div>
+    <div class="version">v1.0.0</div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="actions-grid">
+    <button class="btn btn-primary" id="btn-set">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      Set Mark
+    </button>
+    <button class="btn btn-secondary" id="btn-jump">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+      Jump to Mark
+    </button>
+  </div>
+
+  <!-- Auto Scroll -->
+  <div class="card" id="scroll-card">
+    <div class="scroll-header">
+      <div class="scroll-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Auto Scroll
+      </div>
+      <button class="scroll-toggle" id="btn-toggle-scroll" title="Toggle Auto-Scroll">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+    <div class="speed-row">
+      <input type="range" class="slider" id="speed-slider" min="0.5" max="8" step="0.5" value="1.5">
+      <div class="speed-label" id="speed-value">1.5x</div>
+    </div>
+  </div>
+
+  <!-- Scroll Progress -->
+  <div class="card">
+    <div class="status-row">
+      <span>Scroll Progress</span>
+      <span id="scroll-pct">0%</span>
+    </div>
+  </div>
+
+  <!-- Bookmarks -->
+  <div class="card" id="bookmarks-card">
+    <div class="bookmarks-header">
+      <span id="bookmarks-title">Bookmarks (0)</span>
+    </div>
+    <div class="bookmark-list" id="bookmark-list">
+      <div class="no-bookmarks">No marks set yet. Press Alt+S!</div>
+    </div>
+  </div>
+
+  <!-- Shortcuts -->
+  <div class="card shortcuts-section">
+    <div class="section-title">Keyboard Shortcuts</div>
+    <div class="shortcut-row">
+      <span>Set Mark</span>
+      <span class="kbd-tag">Alt + S</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Jump to Mark</span>
+      <span class="kbd-tag">Alt + J</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Toggle Auto-Scroll</span>
+      <span class="kbd-tag">Alt + A</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    ScrollMark &bull; <a href="instruction.html" target="_blank" id="test-link">Open Test Page</a>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

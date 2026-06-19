@@ -12,9 +12,9 @@ Unlike generic scroll-saving extensions, ScrollMark is custom-built to handle co
   <img src="public%20img/ss.png" alt="ScrollMark Extension Preview" width="320">
 </p>
 
-<br>
-
-![ScrollMark Video Demo](public%20img/video%20demo.mp4)
+<p align="center">
+  <img src="public%20img/video_demo.gif" alt="ScrollMark Video Demo" width="600">
+</p>
 
 ---
 

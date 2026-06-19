@@ -9,11 +9,11 @@ Unlike generic scroll-saving extensions, ScrollMark is custom-built to handle co
 ## 📺 Demo & Preview
 
 <p align="center">
-  <img src="public%20img/ss.png" alt="ScrollMark Extension Preview" width="320">
+  <img src="demo/ss.png" alt="ScrollMark Extension Preview" width="320">
 </p>
 
 <p align="center">
-  <img src="public%20img/video_demo.gif" alt="ScrollMark Video Demo" width="600">
+  <img src="demo/video_demo.gif" alt="ScrollMark Video Demo" width="600">
 </p>
 
 ---

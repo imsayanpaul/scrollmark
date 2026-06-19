@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollPct = document.getElementById('scroll-pct');
   const bookmarkList = document.getElementById('bookmark-list');
   const bookmarksTitle = document.getElementById('bookmarks-title');
-  const testLink = document.getElementById('test-link');
   const toast = document.getElementById('toast');
 
   let currentState = null;
@@ -190,12 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (testLink) {
-    testLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      chrome.tabs.create({ url: chrome.runtime.getURL('instruction.html') });
-    });
-  }
+
 
   // --- POLL FOR SCROLL PROGRESS WHILE POPUP IS OPEN ---
   let pollInterval = setInterval(() => {

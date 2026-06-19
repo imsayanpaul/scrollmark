@@ -48,5 +48,4 @@ Built during study breaks for exams. When reading long study materials or logs a
 - `popup.html` & `popup.js`: The control panel interface.
 - `content.js`: Handles scroll position calculations, visual line indicators, and message events.
 - `background.js`: Listens for browser-wide keyboard commands and forwards them.
-- `instruction.html`: Interactive sandbox test page.
 - `icon*.png`: Extension logo assets.

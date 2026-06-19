@@ -14,9 +14,7 @@ Unlike generic scroll-saving extensions, ScrollMark is custom-built to handle co
 
 <br>
 
-<p align="center">
-  <video src="public%20img/video%20demo.mp4" width="100%" controls autoplay loop muted></video>
-</p>
+![ScrollMark Video Demo](public%20img/video%20demo.mp4)
 
 ---
 
